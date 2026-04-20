@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Alaska_Scene.unity
+    path: Assets/_Scenes/Alaska_Forest.unity
     guid: 2b3ff1e1e0fd8524fba693afd60f80db
   - enabled: 1
-    path: Assets/_Scenes/Alaska_Scene 1.unity
+    path: Assets/_Scenes/Alaska_Cabin.unity
     guid: 46432dd18b37c8740a195e17ed6b008b
   m_configObjects: {}
