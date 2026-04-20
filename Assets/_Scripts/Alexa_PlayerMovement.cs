@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Alexa_PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController cc;
     [SerializeField] private Camera cam;
