@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private GameObject pauseUIObject;
+    public void pauseGame()
     {
-        
+        if (pauseUIObject == null) return;
+
+        if (pauseUIObject.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            pauseUIObject.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            pauseUIObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Alexa_GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int day;
+    int memoriesFound;
+
+    private void Awake()
     {
-        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

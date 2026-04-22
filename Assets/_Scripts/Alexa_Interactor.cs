@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inspect : MonoBehaviour
 {
-    [SerializeField] private Transform holdPosition;
     [SerializeField] private GameObject inspectPanel;
+    [SerializeField] private Image imageUI;
+    [SerializeField] private TMP_Text nameUI;
+    [SerializeField] private TMP_Text descriptionUI;
+    [SerializeField] private int inspectIndex = 0;
     [SerializeField] private Camera cam;
     private float inspectRange = 5f;
     private bool isInspecting = false; //true if player is inspecting an object
@@ -19,11 +24,6 @@ public class Inspect : MonoBehaviour
 
         if (isInspecting)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                inspectMovement();
-            }
-
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
             {
                 closeInspectMenu();
@@ -44,26 +44,46 @@ public class Inspect : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, inspectRange))
 
         {
+            hit.transform.gameObject.CompareTag("Item"); //Checks if object hit is a memory
+            GameObject hitObject = hit.transform.gameObject;
             Debug.DrawLine(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
-            openInspectMenu();
+            
+
+            if (hitObject.CompareTag("Item"))
+            {
+                Debug.Log("Item Hit");
+                Item hitItem = hitObject.GetComponent<Item>();
+                ItemData hitItemData = hitItem.itemData;
+                if (hitItemData != null)
+                {
+                    openInspectMenu(hitItemData);
+                    Debug.Log("Opening Inspect Menu");
+                }
+
+                Debug.Log("No item data found");
+            }
+            
         }
         else
         {
             Debug.DrawLine(transform.position, transform.TransformDirection(Vector3.forward) * inspectRange, Color.white);
-            Debug.Log("Did not Hit");
+            Debug.Log("Item not Hit");
         }
 
     }
 
-    private void openInspectMenu()
+    private void openInspectMenu(ItemData item)
     {
         //Uses canvas manager and locks the player screen.
         //Darkens the background
         //Creates a copy of the object detected in inspectInFront()
 
         isInspecting = true;
+        imageUI.sprite = item.itemThumbnail;
+        nameUI.text = item.itemName;
+        descriptionUI.text = item.itemDescription;
         inspectPanel.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void closeInspectMenu()
@@ -71,12 +91,26 @@ public class Inspect : MonoBehaviour
         //Closes the menu and brings player back to gameplay
         isInspecting = false;
         inspectPanel.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
-    private void inspectMovement()
+    private void InspectBucket(Bucket bucket)
     {
-        //Locks player cursor
-        //Player presses right-click (1) to rotate object
+        if (bucket.itemsInBucket.Count < 1)
+        {
+            inspectIndex = 0;
+        }
+        
+        openInspectMenu(bucket.itemsInBucket[inspectIndex]);
     }
 
+    private void forwardIndex()
+    {
+        inspectIndex++;
+    }
+
+    private void backIndex()
+    {
+        inspectIndex--;
+    }
 }
