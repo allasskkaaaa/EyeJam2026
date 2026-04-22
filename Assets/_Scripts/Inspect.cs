@@ -11,27 +11,31 @@ public class Inspect : MonoBehaviour
     [SerializeField] private TMP_Text nameUI;
     [SerializeField] private TMP_Text descriptionUI;
     [SerializeField] private int inspectIndex = 0;
+    [SerializeField] private Bucket bucket;
     [SerializeField] private Camera cam;
-    private float inspectRange = 5f;
-    private bool isInspecting = false; //true if player is inspecting an object
+    [SerializeField] private float inspectRange = 5f;
+    [SerializeField] private bool isInspecting = false; //true if player is inspecting an object
 
     private void Update()
     {
+        if (isInspecting)
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Closing menu");
+                closeInspectMenu();
+            }
+            else
+            {
+                return;
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             checkInFront();
         }
 
-        if (isInspecting)
-        {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
-            {
-                closeInspectMenu();
-            }
-
-        }
-            
-
+        
     }
 
     private void checkInFront()
@@ -44,10 +48,8 @@ public class Inspect : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, inspectRange))
 
         {
-            hit.transform.gameObject.CompareTag("Item"); //Checks if object hit is a memory
             GameObject hitObject = hit.transform.gameObject;
             Debug.DrawLine(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            
 
             if (hitObject.CompareTag("Item"))
             {
@@ -61,6 +63,9 @@ public class Inspect : MonoBehaviour
                 }
 
                 Debug.Log("No item data found");
+            } else if (hitObject.CompareTag("Bucket"))
+            {
+                InspectBucket();
             }
             
         }
@@ -82,6 +87,8 @@ public class Inspect : MonoBehaviour
         imageUI.sprite = item.itemThumbnail;
         nameUI.text = item.itemName;
         descriptionUI.text = item.itemDescription;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         inspectPanel.SetActive(true);
         Time.timeScale = 0;
     }
@@ -91,26 +98,36 @@ public class Inspect : MonoBehaviour
         //Closes the menu and brings player back to gameplay
         isInspecting = false;
         inspectPanel.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
     }
 
-    private void InspectBucket(Bucket bucket)
+    private void InspectBucket()
     {
-        if (bucket.itemsInBucket.Count < 1)
+        if (bucket.totalCollected() <= 0)
         {
-            inspectIndex = 0;
+            DialogueManager.instance.setDialogue("You haven't caught anything.");
+            return;
         }
         
         openInspectMenu(bucket.itemsInBucket[inspectIndex]);
     }
 
-    private void forwardIndex()
+    public void increaseIndex()
     {
-        inspectIndex++;
+        inspectIndex = (inspectIndex + 1) % bucket.itemsInBucket.Count;
+        openInspectMenu(bucket.itemsInBucket[inspectIndex]);
+
+
     }
 
-    private void backIndex()
+    public void decreaseIndex()
     {
-        inspectIndex--;
+        if (bucket.itemsInBucket.Count == 0) return;
+
+        inspectIndex = (inspectIndex - 1 + bucket.itemsInBucket.Count) % bucket.itemsInBucket.Count;
+        openInspectMenu(bucket.itemsInBucket[inspectIndex]);
     }
+
 }
