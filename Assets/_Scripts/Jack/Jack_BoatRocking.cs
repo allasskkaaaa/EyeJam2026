@@ -5,8 +5,8 @@ using UnityEngine;
 public class Jack_BoatRocking : MonoBehaviour
 {
     [Header("Rocking")]
-    public float idleRockAmount;
-    public float idleRockSpeed;
+    public float idleRockAmount = 2;
+    public float idleRockSpeed = 1;
 
     // Update is called once per frame
     void Update()

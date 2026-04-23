@@ -2582,6 +2582,8 @@ MonoBehaviour:
   inspectIndex: 0
   bucket: {fileID: 800424701}
   cam: {fileID: 2114774770}
+  inspectRange: 5
+  isInspecting: 0
 --- !u!1 &1778338948
 GameObject:
   m_ObjectHideFlags: 0

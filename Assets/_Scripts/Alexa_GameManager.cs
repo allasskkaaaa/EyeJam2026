@@ -5,6 +5,7 @@ using UnityEngine;
 public class Alexa_GameManager : MonoBehaviour
 {
     int day;
+    
     int memoriesFound;
 
     private void Awake()
@@ -13,4 +14,5 @@ public class Alexa_GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    
 }
