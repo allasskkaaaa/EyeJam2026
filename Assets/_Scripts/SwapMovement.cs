@@ -11,11 +11,12 @@ public class SwapMovement : MonoBehaviour
     [SerializeField] Jack_BoatMovement boatPlayer;
     [SerializeField] Transform boatHead;
     [SerializeField] CinemachineVirtualCamera cinemaCam;
-
+    [SerializeField] bool isWalking = true;
     public void becomeBoat()
     {
         walkingPlayer.enabled = false;
         boatPlayer.enabled = true;
+        walkingPlayer.transform.gameObject.SetActive(false);
         cinemaCam.Follow = boatHead;
 
     }
@@ -24,9 +25,30 @@ public class SwapMovement : MonoBehaviour
     {
         walkingPlayer.enabled = true;
         boatPlayer.enabled = false;
+        walkingPlayer.transform.gameObject.SetActive(true);
         cinemaCam.Follow = playerHead;
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        DialogueManager.instance.setDialogue("[E]");
+        
+    }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isWalking)
+            {
+                becomeBoat();
+            }
+            else
+            {
+                becomePlayer();
+            }
+        }
+        
+    }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private CharacterController cc;
+    [SerializeField] private Rigidbody rb;
     [SerializeField] private Camera cam;
     [SerializeField] private float playerSpeed = 5;
     // Start is called before the first frame update
     void Start()
     {
-        cc = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize();
 
         Vector3 moveDir = camForward * verInput + camRight * horInput;
-        moveDir.y = 0f;
-        cc.Move(moveDir * playerSpeed * Time.deltaTime);
+        Vector3 velocity = moveDir * playerSpeed;
+        velocity.y = rb.velocity.y;
+        rb.velocity = velocity;
     }
 }
