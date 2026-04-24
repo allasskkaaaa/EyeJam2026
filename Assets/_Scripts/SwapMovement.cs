@@ -11,6 +11,7 @@ public class SwapMovement : MonoBehaviour
     [SerializeField] Jack_BoatMovement boatPlayer;
     [SerializeField] Transform boatHead;
     [SerializeField] CinemachineVirtualCamera cinemaCam;
+    [SerializeField] GameObject movementTrigger;
     [SerializeField] bool isWalking = true;
     public void becomeBoat()
     {
@@ -28,6 +29,16 @@ public class SwapMovement : MonoBehaviour
         walkingPlayer.transform.gameObject.SetActive(true);
         cinemaCam.Follow = playerHead;
 
+    }
+
+    public void enableSwapping()
+    {
+        movementTrigger.SetActive(true);
+    }
+
+    public void disableSwapping()
+    {
+        movementTrigger.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
