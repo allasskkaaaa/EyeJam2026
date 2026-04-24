@@ -25,10 +25,14 @@ public class DayManager : MonoBehaviour
 
     public void nextDay()
     {
-        if (day <= dayData.Count)
+        if (day < dayData.Count)
         {
             day++;
             StartCoroutine(sleep());
+        }
+        else
+        {
+            Debug.Log("No more days");
         }
     }
 
