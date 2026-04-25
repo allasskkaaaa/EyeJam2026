@@ -3,7 +3,32 @@ guid: f357a95a31d79a94eaa7f03c8b00dbea
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 3eb70f2c1721bd748a55f478d4e65210, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 3eb70f2c1721bd748a55f478d4e65210, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 3eb70f2c1721bd748a55f478d4e65210, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 3eb70f2c1721bd748a55f478d4e65210, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stylized Wood
+    second: {fileID: 2100000, guid: 33b8fb1234e94004399b4978f149acd6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
