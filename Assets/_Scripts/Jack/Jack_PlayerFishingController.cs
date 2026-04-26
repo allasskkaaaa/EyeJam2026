@@ -44,6 +44,10 @@ public class Jack_PlayerFishingController : MonoBehaviour
     Jack_FishingSpot cachedFishingSpot;
     Fishable fishable;
 
+    [SerializeField] Bucket bucket;
+    [SerializeField] AudioClip fishCaught;
+    [SerializeField] AudioClip goodMemoryCaught;
+    [SerializeField] AudioClip badMemoryCaught;
     private void Start()
     {
         PopulateFishingSpots();
@@ -157,10 +161,20 @@ public class Jack_PlayerFishingController : MonoBehaviour
         elapsed = 0f;
         bobber.doBobbing = false;
         RetrieveBobber();
-        if(cachedFishingSpot) Destroy(cachedFishingSpot);
+        
+        if (cachedFishingSpot) Destroy(cachedFishingSpot);
+
+
+
         // Inspect Item
         inspect.openInspectMenu(fishable.inspectionObject);
+        DayManager.instance.increaseTracker(DayManager.instance.dayData[DayManager.instance.dayIndex]);
+        DayManager.instance.checkTrackerProgress(DayManager.instance.dayData[DayManager.instance.dayIndex]);
         // Do catch
+        if (fishable.fishableType == Fishable.FishableType.Fish) AudioManager.instance.playSFX(fishCaught);
+        else if (fishable.fishableType == Fishable.FishableType.GoodMemory) AudioManager.instance.playSFX(goodMemoryCaught);
+        else if (fishable.fishableType == Fishable.FishableType.BadMemory) AudioManager.instance.playSFX(badMemoryCaught);
+
     }
 
     public void PopulateFishingSpots()

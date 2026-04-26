@@ -23,4 +23,6 @@ public class CanvasManager : MonoBehaviour
             Time.timeScale = 0;
         }
     }
+
+
 }

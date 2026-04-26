@@ -9,5 +9,4 @@ public class ItemData : ScriptableObject
     public Sprite itemThumbnail;
     public string itemName;
     public string itemDescription;
-    public bool isMemory;
 }

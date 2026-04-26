@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Bucket
   - Water
+  - Boat
   layers:
   - Default
   - TransparentFX

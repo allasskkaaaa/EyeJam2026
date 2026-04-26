@@ -31,7 +31,7 @@ public class Inspect : MonoBehaviour
                 return;
             }
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             checkInFront();
         }

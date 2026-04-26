@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3eaddb36825884a4ba95479b3d525f21, type: 3}
-  m_Name: Test
+  m_Name: RainbowTrout
   m_EditorClassIdentifier: 
-  itemThumbnail: {fileID: 21300000, guid: d08eedf660dbd484db2e43a700663d86, type: 3}
-  itemName: amogus
-  itemDescription: this item looks sus
+  itemThumbnail: {fileID: 21300000, guid: 4c47995b9e2b8bb468cd6afb539392eb, type: 3}
+  itemName: Rainbow Trout
+  itemDescription: They can leap over obstacles over 11 feet tall!
+  isMemory: 0

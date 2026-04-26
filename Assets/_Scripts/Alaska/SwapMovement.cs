@@ -13,39 +13,18 @@ public class SwapMovement : MonoBehaviour
     [SerializeField] Transform playerHead;
     [SerializeField] Jack_BoatMovement boatPlayer;
     [SerializeField] Transform boatHead;
+    [SerializeField] Collider boatCollider;
     [SerializeField] CinemachineVirtualCamera cinemaCam;
     [SerializeField] bool isWalking = true;
-    [SerializeField] bool triggered;
+    [SerializeField] bool doneFishing;
 
-    public void Update()
-    {
-     if (triggered)
-        {
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                if (isWalking)
-                {
-                    OnSwappedMovement?.Invoke(isWalking);
-                    becomeBoat();
-                }
-                else if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
-                {
-                    OnSwappedMovement?.Invoke(isWalking);
-                    becomePlayer();
-                } else if (Input.GetKeyUp(KeyCode.E) && !DayManager.instance.hasFished)
-                {
-                    OnSwappedMovement?.Invoke(isWalking);
-                    DialogueManager.instance.setDialogue("I haven't finished fishing yet");
-                }
-            }
-        }   
-    }
     public void becomeBoat()
     {
         Debug.Log("Swapping to boat");
         isWalking = false;
         walkingPlayer.enabled = false;
         boatPlayer.enabled = true;
+        boatCollider.enabled = true;
         walkingPlayer.transform.gameObject.SetActive(false);
         cinemaCam.Follow = boatHead;
         Debug.Log("Swapped to boat");
@@ -58,6 +37,7 @@ public class SwapMovement : MonoBehaviour
         isWalking = true;
         walkingPlayer.enabled = true;
         boatPlayer.enabled = false;
+        boatCollider.enabled = false;
         walkingPlayer.transform.gameObject.SetActive(true);
         cinemaCam.Follow = playerHead;
         Debug.Log("Swapped to walking");
@@ -65,20 +45,42 @@ public class SwapMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Debug.Log(other.tag + " has entered the movement swap trigger");
+        if (other.CompareTag("Player") && isWalking)
         {
             DialogueManager.instance.setDialogue("[E] Enter Boat");
-            triggered = true;
-        }  
+        } else if (other.CompareTag("Boat") && !isWalking && DayManager.instance.hasFished)
+        {
+            DialogueManager.instance.setDialogue("[E] Exit Boat");
+        }
         
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-  
-            triggered = false;
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                if (isWalking && !DayManager.instance.hasFished)
+                {
+                    OnSwappedMovement?.Invoke(isWalking);
+                    becomeBoat();
+                }
+            }
         }
+        if (other.CompareTag("Boat"))
+        {
+            if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
+            {
+                OnSwappedMovement?.Invoke(isWalking);
+                becomePlayer();
+            }
+            else if (Input.GetKeyUp(KeyCode.E) && !DayManager.instance.hasFished)
+            {
+                DialogueManager.instance.setDialogue("I haven't finished fishing yet");
+            }
+        }
+        
     }
 }

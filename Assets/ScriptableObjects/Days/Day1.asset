@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Day1
   m_EditorClassIdentifier: 
   day: 1
+  fishingMinimum: 4
+  fogDistanceEnd: 400
+  skyColour: {r: 0.5764706, g: 0.6666667, b: 0.68235296, a: 1}

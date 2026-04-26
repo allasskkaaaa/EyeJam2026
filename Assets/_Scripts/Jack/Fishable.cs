@@ -12,6 +12,7 @@ public class Fishable : ScriptableObject
     public enum FishableType
     {
         Fish,
-        Memory
+        GoodMemory,
+        BadMemory
     }
 }
