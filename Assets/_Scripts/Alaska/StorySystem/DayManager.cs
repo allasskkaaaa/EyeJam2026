@@ -8,6 +8,7 @@ public class DayManager : MonoBehaviour
 {
     public static DayManager instance;
     public UnityEvent OnChangeDay;
+    public UnityEvent OnMemoriesSpawned;
     public int dayIndex;
     [SerializeField] private int _day = 1;
     [SerializeField] private Animator anim;
@@ -80,6 +81,7 @@ public class DayManager : MonoBehaviour
         RenderSettings.fogEndDistance = dayData[dayIndex].fogDistanceEnd;
         cam.backgroundColor = dayData[dayIndex].skyColour;
         anim.Play("FadeFromBlack");
+        checkTrackerProgress(dayData[dayIndex]);
     }
 
     private void Awake()
@@ -170,6 +172,7 @@ public class DayManager : MonoBehaviour
                 return;
             }
             dailyMemories[dayIndex].gameObject.SetActive(true);
+            OnMemoriesSpawned?.Invoke();
         }
     }
 
