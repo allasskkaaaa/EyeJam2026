@@ -66,6 +66,7 @@ public class DayManager : MonoBehaviour
 
     IEnumerator sleep()
     {
+        hasFished = false;
         anim.Play("FadeToBlack");
         yield return new WaitForSeconds(2);
         changeTerrain(dayIndex);
@@ -73,7 +74,7 @@ public class DayManager : MonoBehaviour
         changeMusic(dayIndex);
         OnChangeDay?.Invoke();
         day++;
-        hasFished = false;
+        
         resetTracker(dayData[dayIndex]);
         resetBoat();
         objectiveText.text = "Time to fish";
@@ -86,6 +87,11 @@ public class DayManager : MonoBehaviour
             dailyMemories[dayIndex].gameObject.SetActive(false);
         }
 
+        if (day == 5)
+        {
+            day5SetUp();
+        }
+
     }
 
     private void Awake()
@@ -96,6 +102,11 @@ public class DayManager : MonoBehaviour
         Time.timeScale = 1;
         resetTracker(dayData[1]);
 
+        
+    }
+
+    private void Start()
+    {
         AudioManager.instance.changeSong(dailyMusic[dayIndex]);
     }
 
@@ -151,7 +162,7 @@ public class DayManager : MonoBehaviour
 
         if (dayIndex < dailyMemories.Count)
         {
-            dailyMemories[dayIndex].gameObject.SetActive(true);
+            dailyMemories[dayIndex].gameObject.SetActive(false);
         }
     }
 
@@ -196,6 +207,12 @@ public class DayManager : MonoBehaviour
         boatOBJ.transform.position = boatResetPoint.position;
         boatOBJ.transform.rotation = boatResetPoint.rotation;
         
+    }
+
+    private void day5SetUp()
+    {
+        objectiveText.text = "It's time.";
+        fishTracker.gameObject.SetActive(false);
     }
 
 }
