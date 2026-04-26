@@ -92746,8 +92746,8 @@ MonoBehaviour:
   catchSlider: {fileID: 1386482101}
   fishingMinigameCanvas: {fileID: 1023129917}
   hookWidth: 0.06
-  minMoveTime: 1
-  maxMoveTime: 3
+  minMoveTime: 2
+  maxMoveTime: 4
   minMoveSpeed: 2
   maxMoveSpeed: 6
   doMinigame: 0
