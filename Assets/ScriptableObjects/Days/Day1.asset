@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Day1
   m_EditorClassIdentifier: 
   day: 1
-  fishingMinimum: 1
+  fishingMinimum: 3
   memoriesToFind: 1
   memoryAlert: {fileID: 8300000, guid: d66e9a0de20a2bd4491ae86f9ba83907, type: 3}
   fogDistanceEnd: 400
