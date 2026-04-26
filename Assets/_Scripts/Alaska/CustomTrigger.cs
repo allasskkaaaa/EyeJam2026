@@ -11,14 +11,14 @@ public class CustomTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && isPrompt)
+        if (other.CompareTag("Player") || other.CompareTag("Boat") && isPrompt)
             DialogueManager.instance.setDialogue(promptText);
 
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && isPrompt)
+        if (other.CompareTag("Player") || other.CompareTag("Boat") && isPrompt)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

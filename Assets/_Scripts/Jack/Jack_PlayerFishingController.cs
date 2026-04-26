@@ -44,7 +44,12 @@ public class Jack_PlayerFishingController : MonoBehaviour
     Jack_FishingSpot cachedFishingSpot;
     Fishable fishable;
 
+    
     [SerializeField] Bucket bucket;
+
+    [Header("Sound Effects")]
+    private bool nibbleSoundPlayed = false;
+    [SerializeField] AudioClip fishNibbling;
     [SerializeField] AudioClip fishCaught;
     [SerializeField] AudioClip goodMemoryCaught;
     [SerializeField] AudioClip badMemoryCaught;
@@ -64,6 +69,13 @@ public class Jack_PlayerFishingController : MonoBehaviour
             {
                 bobber.doBobbing = true;
                 fishHookable = true;
+
+                if (!nibbleSoundPlayed)
+                {
+                    AudioManager.instance.playSFX(fishNibbling);
+                    nibbleSoundPlayed = true;
+                }
+                
             }
             if(elapsed > timeUntilFish + maxTimeToHookFish)
             {
@@ -139,16 +151,23 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
     void HookFish()
     {
+        nibbleSoundPlayed = false;
         fishHookable = false;
         fishHooked = true;
         fishable = fishingManager.GetRandomFish();
         foreach (Jack_FishingSpot f in fishingSpots)
         {
+            if (f == null)
+            {
+                break;
+            }
+
             if (Vector3.Distance(endPoint.position, f.transform.position) < f.radius)
             {
                 fishable = f.fishable;
                 cachedFishingSpot = f;
-                fishingSpots.Remove(f);
+                Destroy(f.gameObject);
+                //fishingSpots.Remove(f);
                 break;
             }
         }
@@ -164,16 +183,17 @@ public class Jack_PlayerFishingController : MonoBehaviour
         
         if (cachedFishingSpot) Destroy(cachedFishingSpot);
 
-
+        bucket.itemsInBucket.Add(fishable.inspectionObject);
+        if (fishable.fishableType == Fishable.FishableType.Fish) AudioManager.instance.playSFX(fishCaught);
+        else if (fishable.fishableType == Fishable.FishableType.GoodMemory) AudioManager.instance.playSFX(goodMemoryCaught);
+        else if (fishable.fishableType == Fishable.FishableType.BadMemory) AudioManager.instance.playSFX(badMemoryCaught);
 
         // Inspect Item
         inspect.openInspectMenu(fishable.inspectionObject);
         DayManager.instance.increaseTracker(DayManager.instance.dayData[DayManager.instance.dayIndex]);
         DayManager.instance.checkTrackerProgress(DayManager.instance.dayData[DayManager.instance.dayIndex]);
         // Do catch
-        if (fishable.fishableType == Fishable.FishableType.Fish) AudioManager.instance.playSFX(fishCaught);
-        else if (fishable.fishableType == Fishable.FishableType.GoodMemory) AudioManager.instance.playSFX(goodMemoryCaught);
-        else if (fishable.fishableType == Fishable.FishableType.BadMemory) AudioManager.instance.playSFX(badMemoryCaught);
+        
 
     }
 

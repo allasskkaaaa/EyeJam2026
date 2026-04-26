@@ -21,7 +21,7 @@ public class SwapMovement : MonoBehaviour
     public void becomeBoat()
     {
         Debug.Log("Swapping to boat");
-        isWalking = false;
+        //isWalking = false;
         walkingPlayer.enabled = false;
         boatPlayer.enabled = true;
         boatCollider.enabled = true;
@@ -34,7 +34,7 @@ public class SwapMovement : MonoBehaviour
     {
 
         Debug.Log("Swapping to walking");
-        isWalking = true;
+        //isWalking = true;
         walkingPlayer.enabled = true;
         boatPlayer.enabled = false;
         boatCollider.enabled = false;

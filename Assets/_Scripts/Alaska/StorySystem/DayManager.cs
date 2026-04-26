@@ -30,6 +30,9 @@ public class DayManager : MonoBehaviour
     [SerializeField] List<GameObject> dailyTerrainData;
     [SerializeField] List<GameObject> dailyBoat;
     [SerializeField] List<AudioClip> dailyMusic;
+    [SerializeField] GameObject boatOBJ;
+    [SerializeField] Transform boatResetPoint;
+    [SerializeField] TMP_Text objectiveText;
 
     [SerializeField] GameObject sleepTrigger;
     [SerializeField] private TMP_Text fishTracker;
@@ -67,6 +70,9 @@ public class DayManager : MonoBehaviour
         OnChangeDay?.Invoke();
         day++;
         hasFished = false;
+        resetTracker(dayData[dayIndex]);
+        resetBoat();
+        objectiveText.text = "Time to fish";
         RenderSettings.fogEndDistance = dayData[dayIndex].fogDistanceEnd;
         cam.backgroundColor = dayData[dayIndex].skyColour;
         anim.Play("FadeFromBlack");
@@ -74,10 +80,11 @@ public class DayManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        instance = this;
-        setTracker(dayData[1]);
+        Time.timeScale = 1;
+        resetTracker(dayData[1]);
     }
 
     private void changeTerrain(int currentIndex)
@@ -124,7 +131,7 @@ public class DayManager : MonoBehaviour
 
     }
 
-    public void setTracker(DayData day)
+    public void resetTracker(DayData day)
     {
         fishTracker.text = "Fish Caught: 0/" + day.fishingMinimum;
         fishCaught = 0;
@@ -134,7 +141,9 @@ public class DayManager : MonoBehaviour
     {
         fishCaught++;
         fishTracker.text = "Fish Caught: " + fishCaught.ToString() + "/" + day.fishingMinimum;
-        
+        checkTrackerProgress(day);
+
+
     }
 
     public void checkTrackerProgress(DayData day)
@@ -143,7 +152,14 @@ public class DayManager : MonoBehaviour
         {
             hasFished = true;
             DialogueManager.instance.setDialogue("I should head back");
+            objectiveText.text = "I should head back";
         }
     }
 
+    private void resetBoat()
+    {
+        boatOBJ.transform.position = boatResetPoint.position;
+        boatOBJ.transform.rotation = boatResetPoint.rotation;
+        
+    }
 }

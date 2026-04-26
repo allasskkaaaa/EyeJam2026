@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.text = dialogue;
         dialogueUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(dialoguePlayLength);
-
+        dialogueUI.text = "";
         dialogueUI.gameObject.SetActive(false);
     }
 }

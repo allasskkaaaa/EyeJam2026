@@ -2,34 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class SceneChange : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
-    [SerializeField] private int SceneChangeTo;
+
 
     IEnumerator LoadLevel(int level)
     {
+        Debug.Log("Initializing scene change to " + level);
+        Time.timeScale = 1f;
         if (transition != null)
-            transition.SetTrigger("Start");
+            transition.Play("FadeToBlack");
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(SceneChangeTo);
+        Debug.Log("Changing scene to " + level);
+        SceneManager.LoadScene(level);
     }
 
-    public void triggerDoor()
+    public void changeScene(int newScene)
     {
         //StartCoroutine(LoadLevel(SceneChangeTo));
-        Debug.Log("Changing scene to " +  SceneChangeTo);
-        SceneManager.LoadScene(SceneChangeTo);
+        SceneManager.LoadScene(newScene);
+        //StartCoroutine(LoadLevel(newScene));
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void changeSceneTransition(int newScene)
     {
-        if (!other.CompareTag("Player")) return; //Check if the colliding object is the Player. If not, return
-
-        triggerDoor();
+        //StartCoroutine(LoadLevel(SceneChangeTo));
+        //SceneManager.LoadScene(newScene);
+        StartCoroutine(LoadLevel(newScene));
     }
 }

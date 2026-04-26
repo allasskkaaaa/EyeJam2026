@@ -1,28 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject pauseUIObject;
-    public void pauseGame()
-    {
-        if (pauseUIObject == null) return;
+    
 
-        if (pauseUIObject.activeSelf)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            pauseUIObject.SetActive(false);
-            Time.timeScale = 1;
+            togglePause(pauseUIObject);
+        }
+    }
+    public void toggleMenu(GameObject menu)
+    {
+        if (menu == null) return;
+
+        if (menu.activeSelf)
+        {
+            menu.SetActive(false);
+            
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            pauseUIObject.SetActive(true);
-            Time.timeScale = 0;
+            menu.SetActive(true);
+            
         }
     }
 
+    public void togglePause(GameObject menu)
+    {
+        if (menu == null) return;
+
+        if (menu.activeSelf)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+            toggleMenu(menu);
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0;
+            toggleMenu(menu);
+        }
+    }
 
 }

@@ -23,7 +23,7 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Boat"))
         {
             if (volumeProfile != null && volume != null) StartCoroutine(volumeTrap(volumeProfile, volume)); //Debug.Log("Changing Volume");
 

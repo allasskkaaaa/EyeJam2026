@@ -31,10 +31,10 @@ public class Inspect : MonoBehaviour
                 return;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            checkInFront();
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    checkInFront();
+        //}
 
         
     }
@@ -104,7 +104,7 @@ public class Inspect : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    private void InspectBucket()
+    public void InspectBucket()
     {
         if (bucket.totalCollected() <= 0)
         {
