@@ -24,15 +24,4 @@ public class Jack_FishingManager : MonoBehaviour
         return fishables[Random.Range(0, fishables.Count)];
     }
 
-    public Fishable GetRandomFishOfType(Fishable.FishableType fishableType)
-    {
-        bool isOfType = false;
-        Fishable fish = fishables[Random.Range(0, fishables.Count)];
-        while (!isOfType)
-        {
-            if (fish.fishableType == fishableType) isOfType = true;
-            fish = fishables[Random.Range(0, fishables.Count)];
-        }
-        return fish;
-    }
 }

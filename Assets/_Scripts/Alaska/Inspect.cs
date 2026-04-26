@@ -14,7 +14,8 @@ public class Inspect : MonoBehaviour
     [SerializeField] private Bucket bucket;
     [SerializeField] private Camera cam;
     [SerializeField] private float inspectRange = 5f;
-    [SerializeField] private bool isInspecting = false; //true if player is inspecting an object
+    [SerializeField] bool isInspecting = false; //true if player is inspecting an object
+    public bool IsInspecting => isInspecting;
 
     private void Update()
     {
@@ -77,7 +78,7 @@ public class Inspect : MonoBehaviour
 
     }
 
-    private void openInspectMenu(ItemData item)
+    public void openInspectMenu(ItemData item)
     {
         //Uses canvas manager and locks the player screen.
         //Darkens the background
