@@ -18,7 +18,7 @@ public class Inspect : MonoBehaviour
     [SerializeField] private GameObject bucketArrows;
     public bool IsInspecting => isInspecting;
 
-    bool canClose;
+    public bool canClose;
 
     private void Update()
     {
@@ -118,6 +118,7 @@ public class Inspect : MonoBehaviour
             DialogueManager.instance.setDialogue("You haven't caught anything.");
             return;
         }
+        canClose = false;
         bucketArrows.SetActive(true);
         openInspectMenu(bucket.itemsInBucket[inspectIndex]);
     }

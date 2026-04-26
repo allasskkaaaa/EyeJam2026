@@ -205,6 +205,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
         }
 
         // Inspect Item
+        inspect.canClose = true;
         inspect.openInspectMenu(fishable.inspectionObject);
         DayManager.instance.increaseTracker(DayManager.instance.dayData[DayManager.instance.dayIndex]);
         DayManager.instance.checkTrackerProgress(DayManager.instance.dayData[DayManager.instance.dayIndex]);
