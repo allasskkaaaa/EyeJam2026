@@ -84,4 +84,8 @@ public class Jack_BoatMovement : MonoBehaviour
         audioSource.pitch = Random.Range(0.8f, 1.2f);
         audioSource.PlayOneShot(sploosh);
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        velocity -= Mathf.Sign(velocity) * 0.8f * Time.deltaTime;
+    }
 }
