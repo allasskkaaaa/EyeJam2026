@@ -37,6 +37,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
     float elapsed;
     float timeUntilFish;
+    float trueZero;
     [SerializeField] float minRandomTime;
     [SerializeField] float maxRandomTime;
     [SerializeField] float maxTimeToHookFish;
@@ -53,6 +54,12 @@ public class Jack_PlayerFishingController : MonoBehaviour
     [SerializeField] AudioClip fishCaught;
     [SerializeField] AudioClip goodMemoryCaught;
     [SerializeField] AudioClip badMemoryCaught;
+
+    private void Awake()
+    {
+        trueZero = water.position.y;
+    }
+
     private void Start()
     {
         PopulateFishingSpots();
@@ -104,10 +111,10 @@ public class Jack_PlayerFishingController : MonoBehaviour
                 Vector3 targetPos = camTransform.position + camTransform.forward * maxDist;
                 Vector3 currentPos = camTransform.position + camTransform.forward * 1.1f;
                 Vector3 newPos = Vector3.Lerp(currentPos, targetPos, charge);
-                endPoint.position = new Vector3(newPos.x, water.position.y, newPos.z);
+                endPoint.position = new Vector3(newPos.x, trueZero, newPos.z);
                 bobHologram.transform.position = endPoint.position;
 
-                Vector3 checkPos = new Vector3(endPoint.position.x, water.position.y+10f, endPoint.position.z);
+                Vector3 checkPos = new Vector3(endPoint.position.x, trueZero+10f, endPoint.position.z);
 
                 if(Physics.Raycast(checkPos, Vector3.down*50f, out RaycastHit hit))
                 {
@@ -135,14 +142,14 @@ public class Jack_PlayerFishingController : MonoBehaviour
     void ThrowBobber()
     {
         // Initialize and throw bobber
-        bobber.InitializeBobber(originPoint.position, endPoint.position, water, bobberThrowSpeed, maxHeight);
+        bobber.InitializeBobber(originPoint.position, endPoint.position, trueZero, bobberThrowSpeed, maxHeight);
         bobber.InitializeAnimation(trajectoryAnimCurve);
         bobber.gameObject.SetActive(true);
         bobberOut = true;
         RandomiseFishTime();
     }
 
-    void RetrieveBobber()
+    public void RetrieveBobber()
     {
         // Disable and "retrieve" bobber, but only without hooked fish
         bobber.gameObject.SetActive(false);
