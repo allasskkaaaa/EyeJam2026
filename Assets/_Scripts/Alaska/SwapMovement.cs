@@ -61,7 +61,7 @@ public class SwapMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            DialogueManager.instance.setDialogue("[E]");
+            DialogueManager.instance.setDialogue("[E] Enter Boat");
             triggered = true;
         }  
         

@@ -6,12 +6,13 @@ using UnityEngine.Events;
 public class CustomTrigger : MonoBehaviour
 {
     public UnityEvent onTriggerEnter;
+    [SerializeField] private string promptText;
     public bool isPrompt = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && isPrompt)
-            DialogueManager.instance.setDialogue("[E]");
+            DialogueManager.instance.setDialogue(promptText);
 
     }
 

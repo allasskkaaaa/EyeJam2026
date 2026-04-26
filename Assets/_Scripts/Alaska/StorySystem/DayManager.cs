@@ -34,14 +34,8 @@ public class DayManager : MonoBehaviour
         if (hasFished)
         {
             if (day < dayData.Count)
-            {
-                DialogueManager.instance.setDialogue("Time to sleep");
-                changeTerrain(dayIndex);
-                changeBoat(dayIndex);
-                day++;
+            {            
                 StartCoroutine(sleep());
-
-
             }
             else
             {
@@ -60,6 +54,9 @@ public class DayManager : MonoBehaviour
     {
         anim.Play("FadeToBlack");
         yield return new WaitForSeconds(2);
+        changeTerrain(dayIndex);
+        changeBoat(dayIndex);
+        day++;
         anim.Play("FadeFromBlack");
     }
 
