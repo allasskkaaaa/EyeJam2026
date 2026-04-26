@@ -193,13 +193,22 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
         bucket.itemsInBucket.Add(fishable.inspectionObject);
         if (fishable.fishableType == Fishable.FishableType.Fish) AudioManager.instance.playSFX(fishCaught);
-        else if (fishable.fishableType == Fishable.FishableType.GoodMemory) AudioManager.instance.playSFX(goodMemoryCaught);
-        else if (fishable.fishableType == Fishable.FishableType.BadMemory) AudioManager.instance.playSFX(badMemoryCaught);
+        else if (fishable.fishableType == Fishable.FishableType.GoodMemory)
+        {
+            AudioManager.instance.playSFX(goodMemoryCaught); 
+            DayManager.instance.memoriesCaught++;
+        }
+        else if (fishable.fishableType == Fishable.FishableType.BadMemory) 
+        { 
+            AudioManager.instance.playSFX(badMemoryCaught); 
+            DayManager.instance.memoriesCaught++; 
+        }
 
         // Inspect Item
         inspect.openInspectMenu(fishable.inspectionObject);
         DayManager.instance.increaseTracker(DayManager.instance.dayData[DayManager.instance.dayIndex]);
         DayManager.instance.checkTrackerProgress(DayManager.instance.dayData[DayManager.instance.dayIndex]);
+        
         // Do catch
         
 

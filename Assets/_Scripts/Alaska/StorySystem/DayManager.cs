@@ -30,14 +30,17 @@ public class DayManager : MonoBehaviour
     [SerializeField] List<GameObject> dailyTerrainData;
     [SerializeField] List<GameObject> dailyBoat;
     [SerializeField] List<AudioClip> dailyMusic;
+    [SerializeField] List<GameObject> dailyMemories;
     [SerializeField] GameObject boatOBJ;
     [SerializeField] Transform boatResetPoint;
     [SerializeField] TMP_Text objectiveText;
 
     [SerializeField] GameObject sleepTrigger;
     [SerializeField] private TMP_Text fishTracker;
+    public int memoriesCaught;
     public int fishCaught;
     [SerializeField] public bool hasFished = true;
+
 
     public void nextDay()
     {
@@ -67,6 +70,7 @@ public class DayManager : MonoBehaviour
         changeTerrain(dayIndex);
         changeBoat(dayIndex);
         changeMusic(dayIndex);
+        dailyMemories[dayIndex].gameObject.SetActive(false);
         OnChangeDay?.Invoke();
         day++;
         hasFished = false;
@@ -135,6 +139,7 @@ public class DayManager : MonoBehaviour
     {
         fishTracker.text = "Fish Caught: 0/" + day.fishingMinimum;
         fishCaught = 0;
+        memoriesCaught = 0;
     }
 
     public void increaseTracker(DayData day)
@@ -148,11 +153,23 @@ public class DayManager : MonoBehaviour
 
     public void checkTrackerProgress(DayData day)
     {
-        if (fishCaught >= day.fishingMinimum)
+
+        if (fishCaught >= day.fishingMinimum && memoriesCaught >= day.memoriesToFind)
         {
             hasFished = true;
             DialogueManager.instance.setDialogue("I should head back");
             objectiveText.text = "I should head back";
+        } else if ((fishCaught >= day.fishingMinimum && memoriesCaught < day.memoriesToFind))
+        {
+            AudioManager.instance.playSFX(day.memoryAlert);
+            DialogueManager.instance.setDialogue("I sense something else here");
+            objectiveText.text = "I sense something else here";
+            if (dayIndex > dailyMemories.Count)
+            {
+                //If there is no more data for the day, return
+                return;
+            }
+            dailyMemories[dayIndex].gameObject.SetActive(true);
         }
     }
 
@@ -162,4 +179,5 @@ public class DayManager : MonoBehaviour
         boatOBJ.transform.rotation = boatResetPoint.rotation;
         
     }
+
 }

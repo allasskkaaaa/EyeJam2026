@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   day: 4
   fishingMinimum: 4
+  memoriesToFind: 1
+  memoryAlert: {fileID: 8300000, guid: 029539a59f4160d4dacd4a25a797fac3, type: 3}
   fogDistanceEnd: 200
   skyColour: {r: 0.4195585, g: 0.45111552, b: 0.4566037, a: 0}

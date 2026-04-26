@@ -7,6 +7,8 @@ public class DayData : ScriptableObject
 {
     public int day;
     public int fishingMinimum; //How many fish needs to be caught to progress the day;
+    public int memoriesToFind = 1;
+    public AudioClip memoryAlert;
     public float fogDistanceEnd = 400;
     public Color skyColour;
 
