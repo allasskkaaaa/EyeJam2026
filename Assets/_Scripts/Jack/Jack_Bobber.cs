@@ -9,7 +9,7 @@ public class Jack_Bobber : MonoBehaviour
     private Vector3 target, origin;
     private float moveSpeed;
     private float maxHeight;
-
+    Transform water;
     private AnimationCurve trajectoryCurve;
     Vector3 trajectoryRange;
     Vector3 flattenedPosition;
@@ -28,13 +28,13 @@ public class Jack_Bobber : MonoBehaviour
         }
 
         if (doBobbing) BobDoSomething();
-        else transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+        else transform.position = new Vector3(transform.position.x, water.position.y, transform.position.z);
     }
 
     void BobDoSomething()
     {
         float noise = Mathf.PerlinNoise(Time.time * 0.5f, 0f) * 0.05f;
-        float newY = (Mathf.Sin(Time.time * 20f) * 0.02f + noise) - 0.05f;
+        float newY = water.position.y - (Mathf.Sin(Time.time * 20f) * 0.02f + noise) - 0.05f;
         Vector3 bobPos = new Vector3(transform.position.x, newY, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, bobPos, 0.5f);
     }
@@ -58,11 +58,12 @@ public class Jack_Bobber : MonoBehaviour
         }
     }
 
-    public void InitializeBobber(Vector3 _origin, Vector3 _target, float _moveSpeed, float _maxHeight)
+    public void InitializeBobber(Vector3 _origin, Vector3 _target, Transform _water, float _moveSpeed, float _maxHeight)
     {
         doMove = true;
         origin = _origin;
         target = _target;
+        water = _water;
         moveSpeed = _moveSpeed;
         maxHeight = _maxHeight;
         trajectoryRange = _target - _origin;

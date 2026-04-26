@@ -12,6 +12,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
     public Transform originPoint;
     public Transform endPoint;
     public Transform camTransform;
+    public Transform water;
 
     [Header("Fishing stats")]
     public float chargeSpeed;
@@ -28,7 +29,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
     [SerializeField] float bobberTimer;
 
     [SerializeField] private LineRenderer lr;
-    private List<Jack_FishingSpot> fishingSpots = new();
+    [SerializeField] private List<Jack_FishingSpot> fishingSpots = new();
     private bool bobberOut = false;
     private bool fishHooked = false;
     private bool fishHookable;
@@ -87,10 +88,10 @@ public class Jack_PlayerFishingController : MonoBehaviour
                 Vector3 targetPos = camTransform.position + camTransform.forward * maxDist;
                 Vector3 currentPos = camTransform.position + camTransform.forward * 1.1f;
                 Vector3 newPos = Vector3.Lerp(currentPos, targetPos, charge);
-                endPoint.position = new Vector3(newPos.x, 0f, newPos.z);
+                endPoint.position = new Vector3(newPos.x, water.position.y, newPos.z);
                 bobHologram.transform.position = endPoint.position;
 
-                Vector3 checkPos = new Vector3(endPoint.position.x, 10f, endPoint.position.z);
+                Vector3 checkPos = new Vector3(endPoint.position.x, water.position.y+10f, endPoint.position.z);
 
                 if(Physics.Raycast(checkPos, Vector3.down*50f, out RaycastHit hit))
                 {
@@ -118,7 +119,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
     void ThrowBobber()
     {
         // Initialize and throw bobber
-        bobber.InitializeBobber(originPoint.position, endPoint.position, bobberThrowSpeed, maxHeight);
+        bobber.InitializeBobber(originPoint.position, endPoint.position, water, bobberThrowSpeed, maxHeight);
         bobber.InitializeAnimation(trajectoryAnimCurve);
         bobber.gameObject.SetActive(true);
         bobberOut = true;
@@ -168,6 +169,11 @@ public class Jack_PlayerFishingController : MonoBehaviour
         fishingSpots.AddRange(FindObjectsOfType<Jack_FishingSpot>());
     }
 
+    public void SetFishingRodActive(bool setActive)
+    {
+        gameObject.SetActive(setActive);
+    }
+
     void RandomiseFishTime()
     {
         elapsed = 0f;
@@ -187,12 +193,5 @@ public class Jack_PlayerFishingController : MonoBehaviour
             lr.enabled = false;
         }
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 checkPos = new Vector3(endPoint.position.x, 10f, endPoint.position.z);
 
-        Gizmos.DrawSphere(checkPos, 1f);
-        Gizmos.DrawRay(checkPos, Vector3.down * 50f);
-    }
 }

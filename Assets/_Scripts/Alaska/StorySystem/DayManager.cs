@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 public class DayManager : MonoBehaviour
 {
     public static DayManager instance;
+    public UnityEvent OnChangeDay;
     private int dayIndex;
     [SerializeField] private int _day = 1;
     [SerializeField] private Animator anim;
@@ -56,6 +58,7 @@ public class DayManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         changeTerrain(dayIndex);
         changeBoat(dayIndex);
+        OnChangeDay?.Invoke();
         day++;
         anim.Play("FadeFromBlack");
     }

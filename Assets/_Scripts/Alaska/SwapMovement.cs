@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Events;
 
 public class SwapMovement : MonoBehaviour
 {
+    public UnityEvent<bool> OnSwappedMovement;
+
     [SerializeField] PlayerMovement walkingPlayer;
     [SerializeField] Transform playerHead;
     [SerializeField] Jack_BoatMovement boatPlayer;
@@ -22,13 +25,16 @@ public class SwapMovement : MonoBehaviour
             {
                 if (isWalking)
                 {
+                    OnSwappedMovement?.Invoke(isWalking);
                     becomeBoat();
                 }
                 else if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
                 {
+                    OnSwappedMovement?.Invoke(isWalking);
                     becomePlayer();
                 } else if (Input.GetKeyUp(KeyCode.E) && !DayManager.instance.hasFished)
                 {
+                    OnSwappedMovement?.Invoke(isWalking);
                     DialogueManager.instance.setDialogue("I haven't finished fishing yet");
                 }
             }
