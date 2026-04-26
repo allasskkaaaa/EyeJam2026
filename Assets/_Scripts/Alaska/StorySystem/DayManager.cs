@@ -64,6 +64,12 @@ public class DayManager : MonoBehaviour
 
     }
 
+    public void skipDay()
+    {
+        StartCoroutine(sleep());
+
+    }
+
     IEnumerator sleep()
     {
         hasFished = false;

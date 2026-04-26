@@ -15,4 +15,3 @@ MonoBehaviour:
   itemThumbnail: {fileID: 21300000, guid: da2e92a8d0412a447b5a7698f24a3d08, type: 3}
   itemName: 
   itemDescription: ...
-  isMemory: 0

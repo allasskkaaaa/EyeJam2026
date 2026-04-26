@@ -15,4 +15,3 @@ MonoBehaviour:
   itemThumbnail: {fileID: 21300000, guid: b52f2ff94f631144a8532c17fc95f330, type: 3}
   itemName: 
   itemDescription: Never enough time
-  isMemory: 0
