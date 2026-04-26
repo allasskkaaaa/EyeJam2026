@@ -18,19 +18,20 @@ public class Inspect : MonoBehaviour
     [SerializeField] private GameObject bucketArrows;
     public bool IsInspecting => isInspecting;
 
+    float cooldown = 0.1f;
+    float prevTime;
+
     private void Update()
     {
         if (isInspecting)
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            prevTime = Time.time;
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape)) && Time.time-prevTime > cooldown)
             {
                 Debug.Log("Closing menu");
-                closeInspectMenu();
+                closeInspectMenu();                
             }
-            else
-            {
-                return;
-            }
+
         }
         //if (Input.GetKeyDown(KeyCode.E))
         //{
@@ -92,6 +93,7 @@ public class Inspect : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         inspectPanel.SetActive(true);
+        Debug.Log("INSPECTING");
         Time.timeScale = 0;
     }
 

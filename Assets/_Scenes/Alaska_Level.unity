@@ -61840,7 +61840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1367486868
 Transform:
   m_ObjectHideFlags: 0
@@ -75745,6 +75745,14 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1681580666403709749, guid: 43eb1d278970d6c49b943674a14c1601, type: 3}
+      propertyPath: itemsInBucket.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681580666403709749, guid: 43eb1d278970d6c49b943674a14c1601, type: 3}
+      propertyPath: itemsInBucket.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e9814d7722906840892fbbf44015bb2, type: 2}
     - target: {fileID: 1688843169908707230, guid: 43eb1d278970d6c49b943674a14c1601, type: 3}
       propertyPath: m_LocalScale.x
       value: 59.069134

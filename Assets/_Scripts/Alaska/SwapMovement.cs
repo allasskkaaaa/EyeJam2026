@@ -64,6 +64,7 @@ public class SwapMovement : MonoBehaviour
             {
                 if (isWalking && !DayManager.instance.hasFished)
                 {
+                    Debug.Log("Entering boat");
                     OnSwappedMovement?.Invoke(isWalking);
                     becomeBoat();
                 }
@@ -73,6 +74,7 @@ public class SwapMovement : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
             {
+                Debug.Log("Exiting boat");
                 OnSwappedMovement?.Invoke(isWalking);
                 becomePlayer();
             }

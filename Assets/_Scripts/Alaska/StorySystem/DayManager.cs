@@ -183,7 +183,8 @@ public class DayManager : MonoBehaviour
             hasFished = true;
             DialogueManager.instance.setDialogue("I should head back");
             objectiveText.text = "I should head back";
-        } else if ((fishCaught >= day.fishingMinimum && memoriesCaught < day.memoriesToFind))
+        } 
+        else if ((fishCaught >= day.fishingMinimum && memoriesCaught < day.memoriesToFind))
         {
             AudioManager.instance.playSFX(day.memoryAlert);
             DialogueManager.instance.setDialogue("I sense something else here");
