@@ -118,6 +118,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
                 if(Physics.Raycast(checkPos, Vector3.down*50f, out RaycastHit hit))
                 {
+                    Debug.Log(hit.transform.tag);
                     if (hit.transform.gameObject.tag == "Water") onWater = true;
                     else onWater = false;
                 }

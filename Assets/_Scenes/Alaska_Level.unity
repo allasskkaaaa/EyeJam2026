@@ -3645,6 +3645,7 @@ GameObject:
   - component: {fileID: 99640013}
   - component: {fileID: 99640012}
   - component: {fileID: 99640011}
+  - component: {fileID: 99640014}
   m_Layer: 0
   m_Name: Water
   m_TagString: Water
@@ -3731,6 +3732,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99640009}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &99640014
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99640009}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000001, y: 2.2204463e-16, z: 10.000001}
+  m_Center: {x: 0, y: -0.000000014901161, z: 0.00000047683716}
 --- !u!4 &102888128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f357a95a31d79a94eaa7f03c8b00dbea, type: 3}
@@ -29979,6 +30001,7 @@ GameObject:
   - component: {fileID: 473218896}
   - component: {fileID: 473218895}
   - component: {fileID: 473218894}
+  - component: {fileID: 473218897}
   m_Layer: 0
   m_Name: Water
   m_TagString: Water
@@ -30065,6 +30088,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473218892}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &473218897
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473218892}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000001, y: 2.2204463e-16, z: 10.000001}
+  m_Center: {x: 0, y: -0.000000014901161, z: 0.00000047683716}
 --- !u!1001 &473831478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39166,6 +39210,7 @@ GameObject:
   - component: {fileID: 771685665}
   - component: {fileID: 771685664}
   - component: {fileID: 771685663}
+  - component: {fileID: 771685666}
   m_Layer: 0
   m_Name: Water
   m_TagString: Water
@@ -39252,6 +39297,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771685661}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &771685666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771685661}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000001, y: 2.2204463e-16, z: 10.000001}
+  m_Center: {x: 0, y: -0.000000014901161, z: 0.00000047683716}
 --- !u!4 &774461217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a961a223337551044a8518a7ea644708, type: 3}
@@ -55618,6 +55684,7 @@ GameObject:
   - component: {fileID: 1326677849}
   - component: {fileID: 1326677848}
   - component: {fileID: 1326677847}
+  - component: {fileID: 1326677850}
   m_Layer: 0
   m_Name: Water (1)
   m_TagString: Water
@@ -55715,6 +55782,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326677845}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1326677850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326677845}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0.00000047683716, y: 0, z: 0}
 --- !u!1001 &1327204979
 PrefabInstance:
   m_ObjectHideFlags: 0
