@@ -9,7 +9,7 @@ public class DayManager : MonoBehaviour
     public static DayManager instance;
     public UnityEvent OnChangeDay;
     public UnityEvent OnMemoriesSpawned;
-    public int dayIndex;
+    public int dayIndex = 0;
     [SerializeField] private int _day = 1;
     [SerializeField] private Animator anim;
     public int day
@@ -95,6 +95,8 @@ public class DayManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
         resetTracker(dayData[1]);
+
+        AudioManager.instance.changeSong(dailyMusic[dayIndex]);
     }
 
     private void changeTerrain(int currentIndex)
