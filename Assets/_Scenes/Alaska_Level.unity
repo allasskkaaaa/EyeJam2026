@@ -94618,8 +94618,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4282002297955058032, guid: 433d1bf2c29f3e648b0c595718d2f337, type: 3}
       propertyPath: m_Radius
-      value: 20.76
+      value: 43.7
       objectReference: {fileID: 0}
+    - target: {fileID: 7188978632423046282, guid: 433d1bf2c29f3e648b0c595718d2f337, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d21ce1d3cc4df09478940bcf4381311b, type: 3}
     - target: {fileID: 7188978632423046282, guid: 433d1bf2c29f3e648b0c595718d2f337, type: 3}
       propertyPath: volume
       value: 
