@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     public void changeSong(AudioClip clip)
     {
         musicSource.Stop();
-        musicSource.PlayOneShot(clip);
+        musicSource.clip = clip;
         musicSource.Play();
     }
 

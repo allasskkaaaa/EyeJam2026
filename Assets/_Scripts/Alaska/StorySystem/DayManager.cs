@@ -71,7 +71,6 @@ public class DayManager : MonoBehaviour
         changeTerrain(dayIndex);
         changeBoat(dayIndex);
         changeMusic(dayIndex);
-        dailyMemories[dayIndex].gameObject.SetActive(false);
         OnChangeDay?.Invoke();
         day++;
         hasFished = false;
@@ -82,6 +81,11 @@ public class DayManager : MonoBehaviour
         cam.backgroundColor = dayData[dayIndex].skyColour;
         anim.Play("FadeFromBlack");
         checkTrackerProgress(dayData[dayIndex]);
+        if (dayIndex < dailyMemories.Count)
+        {
+            dailyMemories[dayIndex].gameObject.SetActive(false);
+        }
+
     }
 
     private void Awake()
@@ -142,6 +146,11 @@ public class DayManager : MonoBehaviour
         fishTracker.text = "Fish Caught: 0/" + day.fishingMinimum;
         fishCaught = 0;
         memoriesCaught = 0;
+
+        if (dayIndex < dailyMemories.Count)
+        {
+            dailyMemories[dayIndex].gameObject.SetActive(true);
+        }
     }
 
     public void increaseTracker(DayData day)
@@ -171,7 +180,11 @@ public class DayManager : MonoBehaviour
                 //If there is no more data for the day, return
                 return;
             }
-            dailyMemories[dayIndex].gameObject.SetActive(true);
+            else
+            {
+                dailyMemories[dayIndex].gameObject.SetActive(true);
+            }
+            
             OnMemoriesSpawned?.Invoke();
         }
     }
