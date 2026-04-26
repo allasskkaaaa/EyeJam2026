@@ -18,18 +18,21 @@ public class Inspect : MonoBehaviour
     [SerializeField] private GameObject bucketArrows;
     public bool IsInspecting => isInspecting;
 
-    float cooldown = 0.1f;
-    float prevTime;
+    bool canClose;
 
     private void Update()
     {
         if (isInspecting)
         {
-            prevTime = Time.time;
-            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape)) && Time.time-prevTime > cooldown)
+            if(Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Escape))
+            {
+                canClose = true;
+            }
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape)) && canClose)
             {
                 Debug.Log("Closing menu");
-                closeInspectMenu();                
+                closeInspectMenu();
+                canClose = false;
             }
 
         }
