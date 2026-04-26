@@ -20,27 +20,22 @@ public class SwapMovement : MonoBehaviour
 
     public void becomeBoat()
     {
-        Debug.Log("Swapping to boat");
         //isWalking = false;
         walkingPlayer.enabled = false;
         boatPlayer.enabled = true;
         boatCollider.enabled = true;
         walkingPlayer.transform.gameObject.SetActive(false);
         cinemaCam.Follow = boatHead;
-        Debug.Log("Swapped to boat");
     }
 
     public void becomePlayer()
     {
-
-        Debug.Log("Swapping to walking");
         //isWalking = true;
         walkingPlayer.enabled = true;
         boatPlayer.enabled = false;
         boatCollider.enabled = false;
         walkingPlayer.transform.gameObject.SetActive(true);
         cinemaCam.Follow = playerHead;
-        Debug.Log("Swapped to walking");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,7 +59,6 @@ public class SwapMovement : MonoBehaviour
             {
                 if (isWalking && !DayManager.instance.hasFished)
                 {
-                    Debug.Log("Entering boat");
                     OnSwappedMovement?.Invoke(isWalking);
                     becomeBoat();
                 }
@@ -74,7 +68,6 @@ public class SwapMovement : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
             {
-                Debug.Log("Exiting boat");
                 OnSwappedMovement?.Invoke(isWalking);
                 becomePlayer();
             }

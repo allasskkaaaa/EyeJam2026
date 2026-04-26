@@ -30,7 +30,6 @@ public class Inspect : MonoBehaviour
             }
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape)) && canClose)
             {
-                Debug.Log("Closing menu");
                 closeInspectMenu();
                 canClose = false;
             }
@@ -96,7 +95,6 @@ public class Inspect : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         inspectPanel.SetActive(true);
-        Debug.Log("INSPECTING");
         Time.timeScale = 0;
     }
 

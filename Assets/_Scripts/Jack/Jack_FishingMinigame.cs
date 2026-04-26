@@ -64,7 +64,6 @@ public class Jack_FishingMinigame : MonoBehaviour
         catchSlider.value = catchAmt;
         if (catchAmt >= 100f)
         {
-            Debug.Log("Wow you done caughted the fish");
             OnCatchFish?.Invoke(fish);
             doMinigame = false;
             // Caught fish

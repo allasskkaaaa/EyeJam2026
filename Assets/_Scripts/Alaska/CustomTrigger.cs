@@ -22,7 +22,6 @@ public class CustomTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Calling pressed E");
                 onTriggerEnter.Invoke();
             }
         }
