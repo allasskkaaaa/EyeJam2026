@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6535a7e8405a6aa4885ea31bba16066a, type: 3}
   m_Name: FishTest
   m_EditorClassIdentifier: 
-  inspectionObject: {fileID: 0}
+  inspectionObject: {fileID: 11400000, guid: 873b4d475afbf024b9dfce7883a063e8, type: 2}
   objectName: Among Us Fish
   fishableType: 0

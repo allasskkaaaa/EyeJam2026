@@ -7,11 +7,11 @@ public class Jack_PlayerFishingController : MonoBehaviour
     public Jack_Bobber bobber;
     public Jack_FishingMinigame fishingMinigame;
     public Jack_FishingManager fishingManager;
+    public Inspect inspect;
+    public GameObject bobHologram;
     public Transform originPoint;
     public Transform endPoint;
     public Transform camTransform;
-    public int guaranteeMemory = 5;
-    public int catchesSinceMemory = 0;
 
     [Header("Fishing stats")]
     public float chargeSpeed;
@@ -24,14 +24,15 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
     [SerializeField] private float maxDist;
 
-
     [SerializeField] private float charge;
     [SerializeField] float bobberTimer;
 
     [SerializeField] private LineRenderer lr;
+    private List<Jack_FishingSpot> fishingSpots = new();
     private bool bobberOut = false;
     private bool fishHooked = false;
     private bool fishHookable;
+    private bool onWater;
 
     float elapsed;
     float timeUntilFish;
@@ -39,9 +40,18 @@ public class Jack_PlayerFishingController : MonoBehaviour
     [SerializeField] float maxRandomTime;
     [SerializeField] float maxTimeToHookFish;
 
+    Jack_FishingSpot cachedFishingSpot;
+    Fishable fishable;
+
+    private void Start()
+    {
+        PopulateFishingSpots();
+    }
 
     private void Update()
     {
+        if (inspect.IsInspecting) return;
+
         if (bobberOut && !fishHooked)
         {
             elapsed += Time.deltaTime;
@@ -71,21 +81,34 @@ public class Jack_PlayerFishingController : MonoBehaviour
             if (!bobberOut)
             {
                 bobberTimer += Time.deltaTime * chargeSpeed;
+                bobHologram.SetActive(true);
                 
                 charge = Mathf.PingPong(bobberTimer, 1f);
-                Vector3 newPos = Vector3.Lerp(originPoint.position, camTransform.forward * maxDist, charge);
+                Vector3 targetPos = camTransform.position + camTransform.forward * maxDist;
+                Vector3 currentPos = camTransform.position + camTransform.forward * 1.1f;
+                Vector3 newPos = Vector3.Lerp(currentPos, targetPos, charge);
                 endPoint.position = new Vector3(newPos.x, 0f, newPos.z);
+                bobHologram.transform.position = endPoint.position;
+
+                Vector3 checkPos = new Vector3(endPoint.position.x, 10f, endPoint.position.z);
+
+                if(Physics.Raycast(checkPos, Vector3.down*50f, out RaycastHit hit))
+                {
+                    if (hit.transform.gameObject.tag == "Water") onWater = true;
+                    else onWater = false;
+                }
             }
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
+            bobHologram.SetActive(false);
             bobberTimer = 0f;
             if (bobberOut && !fishHooked)
             {
                 RetrieveBobber();
             }
-            else if (!bobberOut)
+            else if (!bobberOut && onWater)
             {
                 ThrowBobber();
             }
@@ -111,24 +134,38 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
     void HookFish()
     {
-        Fishable fishable;
         fishHookable = false;
         fishHooked = true;
-        if (catchesSinceMemory >= guaranteeMemory) fishable = fishingManager.GetRandomFishOfType(Fishable.FishableType.Memory);
-        else fishable = fishingManager.GetRandomFish();
-
-        if (fishable.fishableType == Fishable.FishableType.Memory) catchesSinceMemory = 0;
+        fishable = fishingManager.GetRandomFish();
+        foreach (Jack_FishingSpot f in fishingSpots)
+        {
+            if (Vector3.Distance(endPoint.position, f.transform.position) < f.radius)
+            {
+                fishable = f.fishable;
+                cachedFishingSpot = f;
+                fishingSpots.Remove(f);
+                break;
+            }
+        }
         fishingMinigame.InitializeFishingMinigame(this, fishable, reelSpeed, hookStrength);
     }
 
     public void CatchFish()
     {
         fishHooked = false;
-        catchesSinceMemory++;
         elapsed = 0f;
         bobber.doBobbing = false;
         RetrieveBobber();
+        if(cachedFishingSpot) Destroy(cachedFishingSpot);
+        // Inspect Item
+        inspect.openInspectMenu(fishable.inspectionObject);
         // Do catch
+    }
+
+    public void PopulateFishingSpots()
+    {
+        fishingSpots.Clear();
+        fishingSpots.AddRange(FindObjectsOfType<Jack_FishingSpot>());
     }
 
     void RandomiseFishTime()
@@ -149,5 +186,13 @@ public class Jack_PlayerFishingController : MonoBehaviour
         {
             lr.enabled = false;
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 checkPos = new Vector3(endPoint.position.x, 10f, endPoint.position.z);
+
+        Gizmos.DrawSphere(checkPos, 1f);
+        Gizmos.DrawRay(checkPos, Vector3.down * 50f);
     }
 }

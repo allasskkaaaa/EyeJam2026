@@ -11,6 +11,9 @@ public class Jack_BoatMovement : MonoBehaviour
     public float brakeForce;
     [SerializeField] private Transform boatObj;
 
+    public AudioClip[] splooshes;
+    public AudioSource audioSource;
+
     private Vector2 moveDir;
     private float velocity;
     [SerializeField] private float velocityDeadzone;
@@ -19,6 +22,10 @@ public class Jack_BoatMovement : MonoBehaviour
     public float strokeSpeed;
     public float strokeStrength;
     private float strokeTimer;
+
+    float threshold = 0.9f;
+    float lastStrokeForce;
+    bool direction;
 
     private void Update()
     {
@@ -44,6 +51,12 @@ public class Jack_BoatMovement : MonoBehaviour
         // Use sine wave and only get the down-strokes
         float stroke = Mathf.Sin(strokeTimer);
         float strokeForce = Mathf.Max(0f, stroke);
+        if(strokeForce > threshold && lastStrokeForce <= threshold)
+        {
+            if (Mathf.Abs(moveDir.y) > 0f) PlaySploosh();
+        }
+
+        lastStrokeForce = strokeForce;
 
         // Check if movement is happening period
         velocity += acceleration * strokeForce * moveDir.y * strokeStrength * Time.deltaTime;
@@ -63,4 +76,12 @@ public class Jack_BoatMovement : MonoBehaviour
         transform.position += transform.forward * velocity * Time.deltaTime;
     }
 
+    void PlaySploosh()
+    {
+        AudioClip sploosh = splooshes[Random.Range(0, splooshes.Length)];
+        audioSource.panStereo = direction ? -0.5f : 0.5f;
+        direction = !direction;
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(sploosh);
+    }
 }

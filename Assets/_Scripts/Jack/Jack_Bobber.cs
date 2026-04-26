@@ -18,6 +18,7 @@ public class Jack_Bobber : MonoBehaviour
         transform.position = origin;
         flattenedPosition = origin;
     }
+
     private void Update()
     {
         if (doMove)
@@ -32,7 +33,9 @@ public class Jack_Bobber : MonoBehaviour
 
     void BobDoSomething()
     {
-        Vector3 bobPos = new Vector3(transform.position.x, Random.Range(-0.1f, 0.02f), transform.position.z);
+        float noise = Mathf.PerlinNoise(Time.time * 0.5f, 0f) * 0.05f;
+        float newY = (Mathf.Sin(Time.time * 20f) * 0.02f + noise) - 0.05f;
+        Vector3 bobPos = new Vector3(transform.position.x, newY, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, bobPos, 0.5f);
     }
 

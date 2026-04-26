@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6535a7e8405a6aa4885ea31bba16066a, type: 3}
   m_Name: MemoryTest
   m_EditorClassIdentifier: 
-  inspectionObject: {fileID: 0}
+  inspectionObject: {fileID: 11400000, guid: 720a71bc09268aa4c859f841a1548c8a, type: 2}
   objectName: My life be like oooooahhhh
   fishableType: 1

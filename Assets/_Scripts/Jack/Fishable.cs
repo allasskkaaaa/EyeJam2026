@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Fishable Item")]
 public class Fishable : ScriptableObject
 {
-    public GameObject inspectionObject;
+    public ItemData inspectionObject;
     public string objectName;
     public FishableType fishableType;
 

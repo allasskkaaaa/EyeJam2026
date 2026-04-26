@@ -84,15 +84,15 @@ public class Jack_FishingMinigame : MonoBehaviour
         bobberSpeed -= bobberSpeed * drag * Time.deltaTime;
         if (Input.GetMouseButton(0))
         {
-            bobberSpeed -= bobberAcceleration * Time.deltaTime / 100f;
+            bobberSpeed -= bobberAcceleration * Time.deltaTime;
         }
         if (Input.GetMouseButton(1))
         {
-            bobberSpeed += bobberAcceleration * Time.deltaTime / 100f;
+            bobberSpeed += bobberAcceleration * Time.deltaTime;
         }
         bobberSpeed = Mathf.Clamp(bobberSpeed, minSpeed, maxSpeed);
         hookSlider.value = Mathf.Clamp(hookSlider.value, 0f, 1f);
-        hookSlider.value += bobberSpeed;
+        hookSlider.value += bobberSpeed * Time.deltaTime;
     }
 
     public void FinishFishingGame()
