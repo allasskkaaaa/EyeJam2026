@@ -15,6 +15,7 @@ public class Inspect : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private float inspectRange = 5f;
     [SerializeField] bool isInspecting = false; //true if player is inspecting an object
+    [SerializeField] private GameObject bucketArrows;
     public bool IsInspecting => isInspecting;
 
     private void Update()
@@ -99,6 +100,7 @@ public class Inspect : MonoBehaviour
         //Closes the menu and brings player back to gameplay
         isInspecting = false;
         inspectPanel.SetActive(false);
+        bucketArrows.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
@@ -111,7 +113,7 @@ public class Inspect : MonoBehaviour
             DialogueManager.instance.setDialogue("You haven't caught anything.");
             return;
         }
-        
+        bucketArrows.SetActive(true);
         openInspectMenu(bucket.itemsInBucket[inspectIndex]);
     }
 

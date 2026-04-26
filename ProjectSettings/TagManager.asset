@@ -8,6 +8,7 @@ TagManager:
   - Bucket
   - Water
   - Boat
+  - Memory
   layers:
   - Default
   - TransparentFX
