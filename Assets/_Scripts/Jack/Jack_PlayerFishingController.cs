@@ -222,6 +222,7 @@ public class Jack_PlayerFishingController : MonoBehaviour
 
     public void SetFishingRodActive(bool setActive)
     {
+        if (DayManager.instance.day >= 5) setActive = false;
         gameObject.SetActive(setActive);
     }
 

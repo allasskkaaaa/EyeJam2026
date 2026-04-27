@@ -27,6 +27,11 @@ public class Jack_BoatMovement : MonoBehaviour
     float lastStrokeForce;
     bool direction;
 
+    private void OnDisable()
+    {
+        velocity = 0f;
+    }
+
     private void Update()
     {
         moveDir.x = Input.GetAxis("Horizontal");
