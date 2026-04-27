@@ -18,6 +18,39 @@ public class SwapMovement : MonoBehaviour
     [SerializeField] bool isWalking = true;
     [SerializeField] bool doneFishing;
 
+    bool getEUp;
+    bool doPlayerSwitch;
+    bool doBoatSwitch;
+
+    private void Update()
+    {
+        getEUp = Input.GetKeyUp(KeyCode.E);
+
+        if (getEUp)
+        {
+            if (doBoatSwitch)
+            {
+                if (isWalking && !DayManager.instance.hasFished)
+                {
+                    OnSwappedMovement?.Invoke(isWalking);
+                    becomeBoat();
+                }
+            }
+            if (doPlayerSwitch)
+            {
+                if (DayManager.instance.hasFished)
+                {
+                    OnSwappedMovement?.Invoke(isWalking);
+                    becomePlayer();
+                }
+                else if (!DayManager.instance.hasFished)
+                {
+                    DialogueManager.instance.setDialogue("I haven't finished fishing yet");
+                }
+            }
+        }
+    }
+
     public void becomeBoat()
     {
         //isWalking = false;
@@ -55,27 +88,24 @@ public class SwapMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                if (isWalking && !DayManager.instance.hasFished)
-                {
-                    OnSwappedMovement?.Invoke(isWalking);
-                    becomeBoat();
-                }
-            }
+            doPlayerSwitch = false;
+            doBoatSwitch = true;
+            
         }
         if (other.CompareTag("Boat"))
         {
-            if (Input.GetKeyUp(KeyCode.E) && DayManager.instance.hasFished)
-            {
-                OnSwappedMovement?.Invoke(isWalking);
-                becomePlayer();
-            }
-            else if (Input.GetKeyUp(KeyCode.E) && !DayManager.instance.hasFished)
-            {
-                DialogueManager.instance.setDialogue("I haven't finished fishing yet");
-            }
+            doBoatSwitch = false;
+            doPlayerSwitch = true;
+            
+        }        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Boat"))
+        {
+            doBoatSwitch = false;
+            doPlayerSwitch = false;
         }
-        
     }
 }

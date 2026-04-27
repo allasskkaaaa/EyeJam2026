@@ -75814,7 +75814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 836122754967206241, guid: 43eb1d278970d6c49b943674a14c1601, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1681580666403709749, guid: 43eb1d278970d6c49b943674a14c1601, type: 3}
       propertyPath: itemsInBucket.Array.size
